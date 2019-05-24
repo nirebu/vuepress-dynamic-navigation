@@ -1,0 +1,19 @@
+{
+  "name": "vuepress-dynamic-navigation",
+  "version": "1.0.0",
+  "description": "An implementation of dynamic generation of sidebar and navbar for vuepress",
+  "directories": {
+    "doc": "docs"
+  },
+  "dependencies": {
+    "glob": "^7.1.4",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "dev": "vuepress dev",
+    "build": "vuepress build"
+  },
+  "author": "Nicolò Rebughini",
+  "license": "ISC"
+}

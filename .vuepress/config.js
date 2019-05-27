@@ -15,14 +15,13 @@ const topLevelDirs = glob.sync( 'docs/*' );
 const navbarItems = topLevelDirs.map( tld => {
   return {
     link: `/${tld}/`,
-    text: tld.substring( tld.lastIndexOf('/')+1 )
+    text: _( tld.substring( tld.lastIndexOf('/')+1 ) ).startCase()
   }
 });
 
 /*
   We'll need to get the list of subdirectories
   and their contents from each tld.
-
   Each sidebar will be an array of objects with this structure:
   [
     {
@@ -46,11 +45,18 @@ function buildSidebarFromTld( tld ) {
     console.log(tld);
     console.log(subdir);
     const subdirChildren = glob.sync( `${subdir}/*.md` , { cwd: `${tld}` } )
-    .filter( filename => ! filename.includes('README') )
-    .map( filename => filename.replace('.md','') )
+    //.filter( filename => ! filename.includes('README') )
+    .map( filename => {
+      if( filename.includes('README') ) {
+        return `${subdir}`;
+      }
+      else {
+        return filename.replace('.md','');
+      }
+    });
     const subdirContent = {
       title: _(subdir).startCase(),
-      path: subdir,
+      path: `/${tld}/${subdir}`,
       collapsable: false,
       children: subdirChildren
     };
@@ -65,10 +71,10 @@ topLevelDirs.map( tld => {
 });
 
 
-//console.log( JSON.stringify(themeSidebar,null,2) );
+console.log( JSON.stringify(themeSidebar,null,2) );
 
 module.exports = {
-  title: 'Dynamic navbar and sidebar for Vuepress',
+  title: 'Cerberoos Docs',
   themeConfig: {
     nav: navbarItems,
     sidebar: themeSidebar,
